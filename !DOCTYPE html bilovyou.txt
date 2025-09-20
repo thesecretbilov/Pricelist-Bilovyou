@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bilovyou - Jualan Aplikasi Premium</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 0;
+    background: #f9f5ff;
+    color: #4b2c83;
+    line-height: 1.5;
+  }
+  header {
+    background: #a78bfa;
+    color: white;
+    padding: 20px 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(167,139,250,0.4);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  header img.logo {
+    height: 40px;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+  header h1 {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin: 0;
+    vertical-align: middle;
+    letter-spacing: 2px;
+  }
+  main {
+    max-width: 900px;
+    margin: 20px auto 60px;
+    padding: 0 15px;
+  }
+  h2.section-title {
+    color: #7c3aed;
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    border-bottom: 3px solid #c4b5fd;
+    padding-bottom: 5px;
+  }
+  .price-list {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(124,58,237,0.15);
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    font-size: 1rem;
+    color: #4b2c83;
+  }
+  .price-list h3 {
+    color: #7c3aed;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #c4b5fd;
+    padding-bottom: 3px;
+  }
+  .price-list ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  .price-list li {
+    margin-bottom: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 6px 10px;
+    transition: background-color 0.2s ease;
+  }
+  .price-list li:hover {
+    background-color: #d8b4fe;
+  }
+  .note {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #6b21a8;
+    margin-top: 10px;
+    white-space: pre-line;
+  }
+  /* Keranjang */
+  #cart {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #a78bfa;
+    color: white;
+    border-radius: 15px 15px 0 0;
+    width: 320px;
+    max-height: 400px;
+    box-shadow: 0 4px 12px rgba(124,58,237,0.4);
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+  }
+  #cart-header {
+    background: #7c3aed;
+    padding: 10px 15px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  #cart-content {
+    background: #f9f5ff;
+    color: #4b2c83;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px 15px;
+  }
+  #cart-items {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  #cart-items li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #d8b4fe;
+    padding-bottom: 4px;
+  }
+  #cart-items li span.name {
+    flex-grow: 1;
+  }
+  #cart-items li button.remove-btn {
+    background: transparent;
+    border: none;
+    color: #a855f7;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  #cart-total {
+    font-weight: 700;
+    margin-top: 10px;
+    text-align: right;
+  }
+  #order-btn {
+    background: #7c3aed;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 10px 15px 15px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    width: calc(100% - 30px);
+    transition: background-color 0.3s ease;
+  }
+  #order-btn:hover {
+    background: #5b21b6;
+  }
+  /* Responsive */
+  @media (max-width: 400px) {
+    #cart {
+      width: 90vw;
+      right: 5vw;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://i.ibb.co/2dQZqZP/bilovyou-logo.png" alt="Bilovyou Logo" class="logo" />
+  <h1>Bilovyou</h1>
+</header>
+
+<main>
+  <h2 class="section-title">Price List Utama</h2>
+
+  <div class="price-list" id="netflix">
+    <h3>🍓 NETFLIX 🍓</h3>
+    <ul>
+      <li data-name="NETFLIX 1DAY" data-price="6000">1DAY : Rp.6.000</li>
+      <li data-name="NETFLIX 3DAY" data-price="10000">3DAY : Rp.10.000</li>
+      <li data-name="NETFLIX 7DAY" data-price="12000">7DAY : Rp.12.000</li>
+      <li data-name="NETFLIX 1 BULAN SHARING 4U/5U" data-price="18000">1 bulan : Rp.18.000 (Sharing 4U/5U)</li>
+      <li data-name="NETFLIX 2 BULAN SHARING 4U/5U" data-price="30000">2 bulan : Rp.30.000 (Sharing 4U/5U)</li>
+      <li data-name="NETFLIX 3 BULAN SHARING 4U/5U" data-price="45000">3 bulan : Rp.45.000 (Sharing 4U/5U)</li>
+    </ul>
+    <p class="note">* Klik item untuk tambah ke keranjang</p>
+  </div>
+
+  <div class="price-list" id="canva">
+    <h3>🍓 CANVA 🍓</h3>
+    <ul>
+      <li data-name="CANVA MEMBER 1 BULAN" data-price="2500">1 bulan  : Rp.2.500</li>
+      <li data-name="CANVA MEMBER 2 BULAN" data-price="5000">2 bulan : Rp.5.000</li>
+      <li data-name="CANVA MEMBER 3 BULAN" data-price="10000">3 bulan : Rp.10.000</li>
+      <li data-name="CANVA MEMBER 1 TAHUN" data-price="15000">1 tahun : Rp.15.000</li>
+      <li data-name="CANVA PRO 7 HARI" data-price="8000">7 hari : Rp.8.000</li>
+      <li data-name="CANVA PRO 1 BULAN" data-price="10000">1 bulan : Rp.10.000</li>
+    </ul>
+    <p class="note">* Klik item untuk tambah ke keranjang</p>
+  </div>
+
+  <h2 class="section-title">Lainnya (Klik tombol keranjang untuk lihat)</h2>
+  <p class="note">Produk lain seperti Vision+, Loklok, YouTube, dll disimpan di keranjang.</p>
+</main>
+
+<!-- Keranjang -->
+<div id="cart">
+  <div id="cart-header">Keranjang <span id="toggle-cart" style="cursor:pointer;">&#9650;</span></div>
+  <div id="cart-content">
+    <ul id="cart-items"></ul>
+    <div id="cart-total">Total: Rp 0</div>
+    <button id="order-btn">Order via WhatsApp</button>
+  </div>
+</div>
+
+<footer>
+  &copy; 2024 Bilovyou - Hubungi: 0852-5246-0755
+</footer>
+
+<script>
+  const cart = [];
+  const cartItemsEl = document.getElementById('cart-items');
+  const cartTotalEl = document.getElementById('cart-total');
+  const orderBtn = document.getElementById('order-btn');
+  const toggleCartBtn = document.getElementById('toggle-cart');
+  const cartContent = document.getElementById('cart-content');
+
+  // Fungsi format angka ke Rp
+  function formatRp(num) {
+    return 'Rp ' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  // Update tampilan keranjang
+  function updateCart() {
+    cartItemsEl.innerHTML = '';
+    let total = 0;
+    cart.forEach((item, index) => {
+      total += item.price;
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="name">${item.name}</span> <span>${formatRp(item.price)}</span> <button class="remove-btn" data-index="${index}">&times;</button>`;
+      cartItemsEl.appendChild(li);
+    });
+    cartTotalEl.textContent = 'Total: ' + formatRp(total);
+  }
+
+  // Tambah item ke keranjang
+  function addToCart(name, price) {
+    cart.push({name, price});
+    updateCart();
+  }
+
+  // Event klik item harga untuk tambah ke keranjang
+  document.querySelectorAll('.price-list li').forEach(li => {
+    li.addEventListener('click', () => {
+      const name = li.getAttribute('data-name');
+      const price = parseInt(li.getAttribute('data-price'));
+      addToCart(name, price);
+      alert(`"${name}" berhasil ditambahkan ke keranjang!`);
+    });
+  });
+
+  // Event klik tombol hapus item di keranjang
+  cartItemsEl.addEventListener('click', e => {
+    if(e.target.classList.contains('remove-btn')) {
+      const index = e.target.getAttribute('data-index');
+      cart.splice(index, 1);
+      updateCart();
+    }
+  });
+
+  // Event klik tombol order via WA
+  orderBtn.addEventListener('click', () => {
+    if(cart.length === 0) {
+      alert('Keranjang kosong! Silakan pilih produk terlebih dahulu.');
+      return;
+    }
+    let message = 'Halo, saya ingin memesan produk berikut:%0A';
+    cart.forEach(item => {
+      message += `- ${item.name} : Rp ${item.price.toLocaleString('id-ID')}%0A`;
+    });
+    message += `Total: Rp ${cart.reduce((a,b) => a + b.price, 0).toLocaleString('id-ID')}`;
+    const waLink = `https://wa.me/6285252460755?text=${message}`;
+    window.open(waLink, '_blank');
+  });
+
+  // Toggle keranjang (buka/tutup)
+  let cartOpen = true;
+  toggleCartBtn.addEventListener('click', () => {
+    cartOpen = !cartOpen;
+    if(cartOpen) {
+      cartContent.style.display = 'block';
+      toggleCartBtn.innerHTML = '&#9650;';
+    } else {
+      cartContent.style.display = 'none';
+      toggleCartBtn.innerHTML = '&#9660;';
+    }
+  });
+</script>
+
+</body>
+</html>
